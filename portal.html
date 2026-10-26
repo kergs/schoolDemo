@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Enzy Royal School Portal – Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,600&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* SCHOOL COLOURS: adjust --brand to the exact uniform red */
+:root{--brand:#B3121F;--brand-dark:#5F0A12;--accent:#E8C26A;
+--bg:#F4F6FB;--paper:#fff;--ink:#16203A;--mute:#5E6985;--line:#DDE2EE;--ok:#1E7B4B;--bad:#B3261E}
+@media (prefers-color-scheme:dark){:root{--bg:#0F1426;--paper:#182038;--ink:#EEF1FA;--mute:#A3AECB;--line:#2B3556;--ok:#5AC48B;--bad:#FF8A80}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Public Sans",system-ui,sans-serif}
+h1,h2,h3{margin:0;line-height:1.15;font-family:Newsreader,Georgia,serif;font-weight:600}
+button,input,select,textarea{font:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* DEMO NOTICE: edit the text here */
+.demo{background:var(--accent);color:#2a1d00;text-align:center;font-size:13px;padding:6px 12px}
+.bar{background:var(--brand);color:#fff;display:flex;align-items:center;gap:12px;padding:10px 16px}
+.logo{width:42px;height:42px;border:2px dashed rgba(255,255,255,.6);border-radius:8px;display:grid;place-items:center;font-size:10px;flex:none}
+.bar b{font-size:17px}.bar small{display:block;opacity:.8;font-size:12px}
+.bar .sp{flex:1}
+.out{background:transparent;border:1.5px solid rgba(255,255,255,.7);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
+.wrap{max-width:900px;margin:auto;padding:18px 16px 70px}
+.login{max-width:520px;margin:auto;padding:36px 16px;text-align:center}
+.login h1{font-size:32px;color:var(--brand)}
+@media (prefers-color-scheme:dark){.login h1{color:var(--ink)}}
+.login p{color:var(--mute)}
+.roles{display:grid;gap:10px;margin-top:22px;text-align:left}
+.role{background:var(--paper);border:1.5px solid var(--line);border-left:6px solid var(--brand);border-radius:10px;padding:14px 16px;cursor:pointer;color:var(--ink);width:100%;text-align:left}
+.role b{display:block;font-size:17px}.role span{color:var(--mute);font-size:13px}
+.tabs{display:flex;gap:6px;border-bottom:2px solid var(--line);margin-bottom:18px;overflow-x:auto}
+.tab{background:none;border:0;padding:10px 14px;color:var(--mute);font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;flex:none}
+.tab[aria-selected=true]{color:var(--brand);border-color:var(--brand)}
+@media (prefers-color-scheme:dark){.tab[aria-selected=true]{color:var(--accent);border-color:var(--accent)}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+.card h3{font-size:17px;margin-bottom:10px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px}
+.stat b{font-size:24px;display:block}.stat span{color:var(--mute);font-size:13px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--mute);font-weight:500;font-size:13px}
+td.n{text-align:right}th.n{text-align:right}
+input.sc{width:62px;padding:6px;border:1.5px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);text-align:center}
+.g{display:inline-block;min-width:26px;text-align:center;border-radius:6px;padding:1px 6px;font-weight:700;background:var(--bg)}
+.g.A,.g.B{color:var(--ok)}.g.F{color:var(--bad)}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer}
+@media (prefers-color-scheme:dark){.btn{background:var(--accent);color:#2a1d00}}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.ghost{background:var(--bg);color:var(--ink);border:1.5px solid var(--line)}
+.bal{font-size:28px;font-weight:800;color:var(--bad)}
+.prog{height:9px;background:var(--bg);border-radius:9px;overflow:hidden;min-width:90px}
+.prog i{display:block;height:100%;background:var(--ok)}
+.note{border-left:4px solid var(--accent);padding:4px 12px;margin-bottom:12px}
+.note small{color:var(--mute)}
+textarea,.in{width:100%;padding:10px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);margin-bottom:8px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;max-width:90vw;z-index:9}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* GLASS THEME: matches the school website, always light */
+:root{color-scheme:light;--bg:#FFF8F8;--paper:#fff;--ink:#2A1A1D;--mute:#6F5F63;--line:#EBDADC;--ok:#1E7B4B;--bad:#B3121F}
+body{background:#FFF8F8;overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;z-index:-1;animation:drift 20s ease-in-out infinite alternate}
+body:before{width:420px;height:420px;background:#FF9AA5;top:-80px;left:-100px}
+body:after{width:440px;height:440px;background:#9CCBFF;bottom:-100px;right:-120px;animation-delay:-8s}
+@keyframes drift{to{transform:translate(50px,40px) scale(1.12)}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.demo{background:rgba(42,26,29,.92);color:#fff}
+.bar{background:linear-gradient(135deg,#E9404E,var(--brand));border-radius:0 0 22px 22px;box-shadow:0 10px 26px rgba(142,16,32,.2)}
+.card,.stat,.role{background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 10px 28px rgba(142,16,32,.08)}
+.role{border-left:1px solid rgba(255,255,255,.9);padding:18px 20px;transition:transform .2s,box-shadow .2s}
+.role:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(142,16,32,.14)}
+.role[data-r=parent]{background:rgba(255,205,212,.6)}
+.role[data-r=teacher]{background:rgba(190,222,255,.6)}
+.role[data-r=admin]{background:rgba(255,230,150,.6)}
+.login{padding-top:56px}
+.login h1{color:var(--ink);font-size:40px}
+.login>*{animation:up .7s cubic-bezier(.2,.7,.2,1) both}
+.login>:nth-child(2){animation-delay:.1s}.login>:nth-child(3){animation-delay:.2s}.login>:nth-child(4){animation-delay:.3s}
+.role:nth-child(2){animation-delay:.1s}
+.wrap>*{animation:up .5s both}
+.tab[aria-selected=true]{color:var(--brand);border-color:var(--brand)}
+.btn{background:var(--brand);color:#fff;border-radius:12px;box-shadow:0 8px 18px rgba(211,32,47,.28);transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:rgba(255,255,255,.75);color:var(--ink);box-shadow:none}
+input.sc,.in,textarea{border-radius:10px;background:rgba(255,255,255,.85)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="demo">Demo mode: sample data. <a href="index.html" style="color:inherit;font-weight:700">Back to school website</a></div>
+<div id="app"></div>
+<script>
+var $=function(s){return document.querySelector(s)};
+var naira=function(n){return "₦"+n.toLocaleString("en-NG")};
+var STU=["Adaeze Obi","Chidera Okafor","Emeka Nwosu","Fatima Bello","Ifeanyi Eze","Joy Udoh","Kelechi Anya","Tunde Adeyemi"];
+var SC=[[16,15,48],[18,17,55],[12,10,35],[19,18,58],[14,13,41],[17,16,50],[10,9,30],[15,14,44]];
+var AT=[true,true,true,false,true,true,false,true];
+var SUBJ=[["Mathematics",18,17,55],["English Language",16,15,49],["Basic Science",17,16,47],["Civic Education",15,16,44],["Business Studies",14,15,46],["Computer Studies",19,18,57]];
+var CLASSES=[["JSS 1A",34,185000,29],["JSS 2A",32,185000,27],["JSS 3A",30,190000,26],["SS 1A",28,210000,21],["SS 2A",26,215000,22],["SS 3A",24,225000,20]];
+var DEF=[["Emeka Nwosu","JSS 2A",95000],["Kelechi Anya","JSS 2A",185000],["Miracle Johnson","SS 1A",110000],["Sandra Ibe","JSS 1A",65000]];
+var NOTES=[["Mid-term break","Mid-term break begins Friday. School resumes Monday 8:00 am.","20 Oct"],["Inter-house sports","Inter-house sports holds on 14 November. Wear your house colours.","18 Oct"]];
+var S={role:null,tab:0};
+var TABS={parent:["Results","Fees","Notices"],teacher:["Scores","Attendance"],admin:["Overview","Fees","Notices"]};
+var WHO={parent:"Parent of Chidera Okafor, JSS 2A",teacher:"Mrs. Adebayo, Mathematics, JSS 2A",admin:"School administrator"};
+function grade(t){return t>=70?"A":t>=60?"B":t>=50?"C":t>=45?"D":t>=40?"E":"F"}
+function remark(g){return {A:"Excellent",B:"Very good",C:"Good",D:"Fair",E:"Pass",F:"Fail"}[g]}
+function toast(m){var t=document.createElement("div");t.className="toast";t.textContent=m;t.setAttribute("role","status");document.body.appendChild(t);setTimeout(function(){t.remove()},2600)}
+function bar(){return '<div class="bar"><div class="logo">LOGO</div><div><b>Enzy Royal Schools</b><small>'+WHO[S.role]+'</small></div><div class="sp"></div><button class="out" id="logout">Log out</button></div>'}
+function prog(p){return '<div class="prog"><i style="width:'+p+'%"></i></div>'}
+function noteList(){return NOTES.map(function(n){return '<div class="note"><b>'+n[0]+'</b><br>'+n[1]+'<br><small>'+n[2]+'</small></div>'}).join("")}
+var V={
+parentResults:function(){var tot=0;var rows=SUBJ.map(function(s){var t=s[1]+s[2]+s[3];tot+=t;var g=grade(t);return '<tr><td>'+s[0]+'</td><td class="n">'+s[1]+'</td><td class="n">'+s[2]+'</td><td class="n">'+s[3]+'</td><td class="n"><b>'+t+'</b></td><td><span class="g '+g+'">'+g+'</span></td><td>'+remark(g)+'</td></tr>'}).join("");
+return '<div class="stats"><div class="stat"><b>'+(tot/SUBJ.length).toFixed(1)+'%</b><span>Term average</span></div><div class="stat"><b>4th</b><span>Position in class of 32</span></div><div class="stat"><b>58 of 62</b><span>Days present</span></div></div><div class="card"><h3>First term report, 2026/2027</h3><div class="tw"><table><tr><th>Subject</th><th class="n">CA 1 (20)</th><th class="n">CA 2 (20)</th><th class="n">Exam (60)</th><th class="n">Total</th><th>Grade</th><th>Remark</th></tr>'+rows+'</table></div><p style="margin:12px 0 0"><button class="btn ghost" data-t="Report card PDF would download here (demo)">Download report card</button></p></div>'},
+parentFees:function(){return '<div class="card"><h3>First term fees</h3><div class="bal">'+naira(65000)+'</div><p style="color:var(--mute);margin:2px 0 12px">outstanding of '+naira(185000)+'. Due 15 November.</p>'+prog(65)+'<p style="font-size:13px;color:var(--mute)">Paid '+naira(120000)+' (65%)</p><button class="btn" data-t="Online payment page opens here. Real version uses Paystack or Flutterwave (demo)">Pay '+naira(65000)+' now</button></div><div class="card"><h3>Payment history</h3><div class="tw"><table><tr><th>Date</th><th>Item</th><th class="n">Amount</th></tr><tr><td>02 Sep</td><td>Tuition, part 1</td><td class="n">'+naira(80000)+'</td></tr><tr><td>30 Sep</td><td>Tuition, part 2</td><td class="n">'+naira(40000)+'</td></tr></table></div></div>'},
+teacherScores:function(){var rows=STU.map(function(n,i){var t=SC[i][0]+SC[i][1]+SC[i][2],g=grade(t);return '<tr><td>'+n+'</td>'+[0,1,2].map(function(k){return '<td><input class="sc" type="number" min="0" max="'+(k<2?20:60)+'" value="'+SC[i][k]+'" data-i="'+i+'" data-k="'+k+'" aria-label="'+n+(k<2?" CA "+(k+1):" exam")+'"></td>'}).join("")+'<td class="n"><b id="t'+i+'">'+t+'</b></td><td><span class="g '+g+'" id="g'+i+'">'+g+'</span></td></tr>'}).join("");
+return '<div class="card"><h3>Mathematics, JSS 2A, first term</h3><div class="tw"><table><tr><th>Student</th><th>CA 1 (20)</th><th>CA 2 (20)</th><th>Exam (60)</th><th class="n">Total</th><th>Grade</th></tr>'+rows+'</table></div><p style="margin:12px 0 0"><button class="btn" data-t="Scores saved. Parents can now see them (demo)">Save scores</button></p></div>'},
+teacherAtt:function(){var rows=STU.map(function(n,i){return '<tr><td>'+n+'</td><td><label><input type="checkbox" data-a="'+i+'"'+(AT[i]?" checked":"")+'> Present</label></td></tr>'}).join("");
+return '<div class="card"><h3>Attendance, JSS 2A, today</h3><p id="attSum" style="color:var(--mute)">'+AT.filter(Boolean).length+' of '+STU.length+' present</p><div class="tw"><table>'+rows+'</table></div><p style="margin:12px 0 0"><button class="btn" data-t="Attendance saved. Parents of absent students would get an SMS (demo)">Save attendance</button></p></div>'},
+adminOverview:function(){var ex=0,pd=0,st=0;CLASSES.forEach(function(c){ex+=c[1]*c[2];pd+=c[3]*c[2];st+=c[1]});
+return '<div class="stats"><div class="stat"><b>'+st+'</b><span>Students enrolled</span></div><div class="stat"><b>'+naira(pd)+'</b><span>Fees collected</span></div><div class="stat"><b>'+naira(ex-pd)+'</b><span>Outstanding</span></div><div class="stat"><b>94%</b><span>Attendance today</span></div></div>'+V.defaulters()},
+defaulters:function(){return '<div class="card"><h3>Outstanding balances</h3><div class="tw"><table><tr><th>Student</th><th>Class</th><th class="n">Owes</th><th></th></tr>'+DEF.map(function(d){return '<tr><td>'+d[0]+'</td><td>'+d[1]+'</td><td class="n">'+naira(d[2])+'</td><td><button class="btn sm" data-t="Reminder sent to the parent of '+d[0]+' by SMS and WhatsApp (demo)">Send reminder</button></td></tr>'}).join("")+'</table></div></div>'},
+adminFees:function(){return '<div class="card"><h3>Fees by class</h3><div class="tw"><table><tr><th>Class</th><th class="n">Students</th><th class="n">Collected</th><th>Progress</th></tr>'+CLASSES.map(function(c){var p=Math.round(c[3]/c[1]*100);return '<tr><td>'+c[0]+'</td><td class="n">'+c[1]+'</td><td class="n">'+naira(c[3]*c[2])+'</td><td>'+prog(p)+'<small>'+p+'% paid</small></td></tr>'}).join("")+'</table></div></div>'+V.defaulters()},
+notices:function(admin){return (admin?'<div class="card"><h3>Post a notice</h3><input class="in" id="nt" placeholder="Title"><textarea id="nb" rows="3" placeholder="Message to all parents"></textarea><button class="btn" id="post">Post notice</button></div>':'')+'<div class="card"><h3>Notices</h3><div id="nl">'+noteList()+'</div></div>'}
+};
+function body(){var r=S.role,t=TABS[r][S.tab];
+if(r==="parent")return t==="Results"?V.parentResults():t==="Fees"?V.parentFees():V.notices(false);
+if(r==="teacher")return t==="Scores"?V.teacherScores():V.teacherAtt();
+return t==="Overview"?V.adminOverview():t==="Fees"?V.adminFees():V.notices(true)}
+function render(){var a=$("#app");
+if(!S.role){a.innerHTML='<div class="login"><div class="logo" style="margin:0 auto 14px;border-color:var(--brand);color:var(--brand)">LOGO</div><h1>Enzy Royal Schools Portal</h1><p>Results, fees and notices in one place. Pick a role to try the demo.</p><div class="roles"><button class="role" data-r="parent"><b>Parent</b><span>See your child’s results, fees and notices</span></button><button class="role" data-r="teacher"><b>Teacher</b><span>Enter scores and take attendance</span></button><button class="role" data-r="admin"><b>Administrator</b><span>Track fees, send reminders, post notices</span></button></div></div>';return}
+a.innerHTML=bar()+'<div class="wrap"><div class="tabs" role="tablist">'+TABS[S.role].map(function(t,i){return '<button class="tab" role="tab" aria-selected="'+(i===S.tab)+'" data-tab="'+i+'">'+t+'</button>'}).join("")+'</div>'+body()+'</div>'}
+document.addEventListener("click",function(e){var t=e.target;
+if(t.dataset.r){S.role=t.dataset.r;S.tab=0;render()}
+if(t.id==="logout"){S.role=null;render()}
+if(t.dataset.tab){S.tab=+t.dataset.tab;render()}
+if(t.dataset.t)toast(t.dataset.t);
+if(t.id==="post"){var a=$("#nt").value.trim(),b=$("#nb").value.trim();if(!a||!b){toast("Add a title and a message first");return}NOTES.unshift([a,b,"Today"]);render();toast("Notice posted. Parents will see it on their Notices tab (demo)")}});
+document.addEventListener("input",function(e){var t=e.target;
+if(t.dataset.i!==undefined){var i=+t.dataset.i,k=+t.dataset.k,m=k<2?20:60,v=Math.max(0,Math.min(m,+t.value||0));SC[i][k]=v;var s=SC[i][0]+SC[i][1]+SC[i][2],g=grade(s);$("#t"+i).textContent=s;var el=$("#g"+i);el.textContent=g;el.className="g "+g}});
+document.addEventListener("change",function(e){var t=e.target;if(t.dataset.a!==undefined){AT[+t.dataset.a]=t.checked;$("#attSum").textContent=AT.filter(Boolean).length+" of "+STU.length+" present"}});
+render();
+</script>
+</body>
+</html>

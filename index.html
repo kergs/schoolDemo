@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Enzy Royal Schools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.className="js"</script>
+<style>
+/* SCHOOL COLOURS: adjust --red to the exact uniform shade. Blob colours are b1, b2, b3 below. */
+:root{color-scheme:light;--red:#D3202F;--deep:#8E1020;--ink:#2A1A1D;--mute:#6F5F63;--glass:rgba(255,255,255,.58);--edge:rgba(255,255,255,.9)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FFF8F8;color:var(--ink);font:17px/1.65 Nunito,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:600;line-height:1.1;margin:0;letter-spacing:-.01em}
+a{color:inherit}
+button,input,select{font:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:1100px;margin:auto;padding:0 22px}
+/* floating colour blobs behind the glass */
+.blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.55;z-index:-1;animation:drift 20s ease-in-out infinite alternate}
+.b1{width:420px;height:420px;background:#FF9AA5;top:-80px;left:-100px}
+.b2{width:460px;height:460px;background:#9CCBFF;top:35vh;right:-140px;animation-delay:-6s}
+.b3{width:380px;height:380px;background:#FFD966;bottom:-80px;left:20vw;animation-delay:-12s}
+@keyframes drift{to{transform:translate(60px,40px) scale(1.12)}}
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);border:1px solid var(--edge);box-shadow:0 10px 30px rgba(142,16,32,.08)}
+.demo{text-align:center;font-size:13px;padding:7px 12px;background:rgba(42,26,29,.9);color:#fff}
+header{position:sticky;top:10px;z-index:5;max-width:1100px;width:calc(100% - 24px);margin:10px auto 0;border-radius:22px;display:flex;align-items:center;gap:16px;height:66px;padding:0 18px}
+.logo{width:44px;height:44px;border:1.5px dashed var(--mute);border-radius:50%;display:grid;place-items:center;font-size:9px;color:var(--mute);flex:none;background:#fff8}
+.brand{font:600 22px Newsreader,Georgia,serif;white-space:nowrap}
+nav{display:flex;gap:6px;margin-left:auto;align-items:center;overflow-x:auto}
+nav a{text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap;padding:7px 12px;border-radius:12px;transition:background .2s}
+nav a:hover{background:rgba(211,32,47,.1);color:var(--red)}
+nav a.p{background:var(--red);color:#fff}
+nav a.p:hover{background:var(--deep)}
+/* PHOTO SLOTS: save a photo in the images folder with the name shown and it appears here */
+.ph{background:#F1E4E6 center/cover;position:relative;display:grid;place-items:center;color:var(--mute);font-size:13px;text-align:center;padding:10px;overflow:hidden;border-radius:22px}
+.ph.has span{display:none}
+.r43{aspect-ratio:4/3}.r34{aspect-ratio:3/4}.r45{aspect-ratio:4/5}
+.btn{display:inline-block;background:var(--red);color:#fff;border:0;border-radius:14px;padding:13px 26px;font-weight:700;text-decoration:none;cursor:pointer;box-shadow:0 8px 20px rgba(211,32,47,.3);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(211,32,47,.38)}
+.hero{padding:56px 0 64px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.hero h1{font-size:clamp(40px,6vw,66px)}
+.hero p{max-width:44ch;color:var(--mute);margin:18px 0 28px}
+.hero .lnk{margin-left:20px;font-weight:700;text-underline-offset:5px}
+.photo{position:relative}
+.photo .ph{border-radius:36px;box-shadow:0 24px 50px rgba(142,16,32,.18)}
+.chip{position:absolute;padding:10px 16px;border-radius:16px;font-weight:700;font-size:14px;animation:bob 5s ease-in-out infinite;display:flex;align-items:center;gap:8px}
+.c1{left:-28px;top:12%}.c2{right:-16px;bottom:10%;animation-delay:-2.5s}
+.dot{width:10px;height:10px;border-radius:50%;background:#2FB36B;animation:pulse 2s infinite}
+@keyframes bob{50%{transform:translateY(-10px)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,179,107,.6)}100%{box-shadow:0 0 0 10px rgba(47,179,107,0)}}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.a{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}.a2{animation-delay:.12s}.a3{animation-delay:.24s}.a4{animation-delay:.36s}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stats div{border-radius:22px;padding:22px 10px;text-align:center}
+.stats b{display:block;font:600 44px/1 Newsreader,Georgia,serif;color:var(--red)}
+.stats span{font-size:14px;color:var(--mute)}
+section{padding:90px 0 0}
+h2{font-size:clamp(30px,4.4vw,44px);margin-bottom:12px}
+.lead{color:var(--mute);max-width:54ch;margin:0 0 36px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.three div{border-radius:24px;padding:26px}
+.three h3,.levels h3{font-size:24px;margin-bottom:6px}.three p,.levels p{margin:0;color:var(--mute);font-size:15.5px}
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.levels div{border-radius:24px;padding:24px;transition:transform .25s}
+.levels div:hover{transform:translateY(-6px)}
+.t1{background:rgba(255,205,212,.6)}.t2{background:rgba(190,222,255,.6)}.t3{background:rgba(255,230,150,.6)}.t4{background:rgba(190,240,215,.6)}
+.act{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px 24px}
+.act .ph,.gal .ph,.stu .ph{transition:transform .35s}
+.act .ph:hover,.gal .ph:hover{transform:scale(1.03)}
+.act h3{font-size:24px;margin:14px 0 4px}.act p{margin:0;color:var(--mute);font-size:15.5px}
+.stu{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.cap{position:absolute;left:12px;right:12px;bottom:12px;border-radius:16px;padding:10px 14px;text-align:left;color:var(--ink)}
+.cap b{display:block;font:600 20px Newsreader,Georgia,serif}.cap small{font-size:14px;color:var(--mute)}
+.news{border-radius:26px;padding:8px 28px}
+.news div{display:grid;grid-template-columns:100px 1fr;gap:18px;padding:18px 0;border-top:1px solid rgba(142,16,32,.12)}
+.news div:first-child{border:0}
+.news time{font:600 24px Newsreader,Georgia,serif;color:var(--red)}
+.news p{margin:0}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:12px}
+.gal .ph{padding:0;border-radius:20px}.gal .t{grid-row:span 2}.gal .w{grid-column:span 2}
+.portal{background:linear-gradient(135deg,#E9404E,#B3121F);color:#fff;border-radius:34px;padding:54px;position:relative;overflow:hidden;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.portal:before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.12);right:-90px;top:-120px}
+.portal>*{position:relative}
+.portal p,.portal li{color:#FFE9EA}
+.portal ul{padding:0;list-style:none;margin:16px 0 28px}
+.portal li{padding:8px 0 8px 30px;position:relative}
+.portal li:before{content:"";position:absolute;left:0;top:15px;width:14px;height:14px;border-radius:50%;background:#FFD966}
+.portal .btn{background:#fff;color:var(--deep);box-shadow:0 8px 20px rgba(0,0,0,.2)}
+.portal .ph{background-color:rgba(255,255,255,.18);color:#FFE9EA;max-width:260px;margin-left:auto;border-radius:30px;border:2px solid rgba(255,255,255,.55);animation:bob 6s ease-in-out infinite}
+.adm{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px}
+.adm ol{list-style:none;padding:0;margin:0;counter-reset:s}
+.adm li{counter-increment:s;display:grid;grid-template-columns:50px 1fr;align-items:center;gap:6px;padding:16px 18px;border-radius:20px;margin-bottom:12px}
+.adm li:before{content:counter(s);width:38px;height:38px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:700}
+.adm li b{display:block}.adm li span{color:var(--mute);font-size:15px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:18px;border-radius:28px;padding:28px;align-content:start}
+label{display:grid;gap:5px;font-size:14px;font-weight:600;color:var(--mute)}
+input,select{padding:11px 13px;border:1.5px solid rgba(142,16,32,.15);border-radius:12px;background:rgba(255,255,255,.85);color:var(--ink);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{outline:0;border-color:var(--red);box-shadow:0 0 0 4px rgba(211,32,47,.15)}
+form .full{grid-column:1/-1}
+.ok{border-radius:16px;padding:14px 18px;margin-top:16px;animation:rise .5s both}
+footer{max-width:1100px;width:calc(100% - 24px);margin:90px auto 14px;border-radius:26px;padding:30px;display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;font-size:15px;color:var(--mute)}
+footer b{font:600 24px Newsreader,Georgia,serif;color:var(--ink);display:block;margin-bottom:4px}
+footer p{margin:0}
+.js .rv{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.js .rv.in{opacity:1;transform:none}
+@media(max-width:860px){.hero .wrap,.portal,.adm{grid-template-columns:1fr}.three,.stu{grid-template-columns:1fr}.levels,.stats{grid-template-columns:1fr 1fr}.gal{grid-template-columns:1fr 1fr}.portal{padding:34px 24px}.portal .ph{margin:0 auto}.brand{display:none}form{grid-template-columns:1fr}.hero{padding-top:34px}.c1{left:-8px}.c2{right:-6px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="demo">Demo website. Names, numbers and photos are placeholders for Enzy Royal.</div>
+<header class="glass">
+<div class="logo">LOGO</div><span class="brand">Enzy Royal Schools</span>
+<nav><a href="#about">About</a><a href="#academics">Academics</a><a href="#activities">Activities</a><a href="#students">Students</a><a href="#gallery">Gallery</a><a href="#admissions">Admissions</a><a class="p" href="#portal">Parent portal</a></nav>
+</header>
+
+<div class="hero"><div class="wrap">
+<div><h1 class="a">A happy school where every child can shine.</h1>
+<p class="a a2">From nursery to senior secondary, Enzy Royal gives children strong teaching, good character and the chance to discover what they love.</p>
+<div class="a a3"><a class="btn" href="#admissions">Apply for admission</a><a class="lnk" href="#portal">See the parent portal</a></div></div>
+<div class="photo a a4">
+<div class="ph r45" data-img="images/hero.jpg"><span>Photo: smiling students in uniform<br>images/hero.jpg</span></div>
+<div class="chip glass c1"><i class="dot"></i>Admissions open</div>
+<div class="chip glass c2">Results on your phone</div>
+</div>
+</div></div>
+
+<div class="wrap"><div class="stats">
+<div class="glass rv"><b data-n="1200">0</b><span>students</span></div><div class="glass rv"><b data-n="60">0</b><span>qualified teachers</span></div><div class="glass rv"><b data-n="15">0</b><span>years of teaching</span></div><div class="glass rv"><b data-n="9">0</b><span>clubs and teams</span></div>
+</div></div>
+
+<main>
+<section id="about"><div class="wrap">
+<h2>About Enzy Royal</h2>
+<p class="lead">Learning, discipline and joy belong together. Our teachers know every child by name, and parents stay close to their child’s progress all term.</p>
+<div class="three">
+<div class="glass rv"><h3>Our mission</h3><p>To give every child a sound education and the character to use it well.</p></div>
+<div class="glass rv"><h3>Our values</h3><p>Integrity, hard work, respect for others and service to the community.</p></div>
+<div class="glass rv"><h3>Our promise</h3><p>Caring teachers, clear discipline and honest reports to parents.</p></div>
+</div></div></section>
+
+<section id="academics"><div class="wrap">
+<h2>Academics</h2>
+<p class="lead">A clear path from the first day of nursery to the final exam.</p>
+<div class="levels">
+<div class="glass t1 rv"><h3>Nursery</h3><p>Play-based learning, phonics and early numbers.</p></div>
+<div class="glass t2 rv"><h3>Primary</h3><p>Core subjects, ICT and creative arts.</p></div>
+<div class="glass t3 rv"><h3>Junior secondary</h3><p>A broad curriculum and Basic Education Certificate preparation.</p></div>
+<div class="glass t4 rv"><h3>Senior secondary</h3><p>Science, Arts and Commercial tracks, with WAEC and NECO preparation.</p></div>
+</div></div></section>
+
+<section id="activities"><div class="wrap">
+<h2>Life beyond the classroom</h2>
+<p class="lead">Children grow in confidence when they have something to be good at.</p>
+<div class="act">
+<div class="rv"><div class="ph r43" data-img="images/sports.jpg"><span>Sports<br>images/sports.jpg</span></div><h3>Sports and athletics</h3><p>Football, track events and an inter-house sports day every term.</p></div>
+<div class="rv"><div class="ph r43" data-img="images/debate.jpg"><span>Debate and quiz<br>images/debate.jpg</span></div><h3>Debate and quiz</h3><p>Public speaking, current affairs and inter-school competitions.</p></div>
+<div class="rv"><div class="ph r43" data-img="images/culture.jpg"><span>Cultural day<br>images/culture.jpg</span></div><h3>Music and culture</h3><p>Choir, drama and a yearly cultural day in traditional attire.</p></div>
+<div class="rv"><div class="ph r43" data-img="images/science.jpg"><span>Science club<br>images/science.jpg</span></div><h3>Science and coding</h3><p>Hands-on experiments, robotics and first steps in programming.</p></div>
+</div></div></section>
+
+<section id="students"><div class="wrap">
+<h2>Our students</h2>
+<p class="lead">Proud moments from the past year.</p>
+<div class="stu">
+<div class="ph r34 rv" data-img="images/student1.jpg"><span>Portrait<br>images/student1.jpg</span><div class="cap glass"><b>Adaeze Obi, SS 3</b><small>Winner, state mathematics competition</small></div></div>
+<div class="ph r34 rv" data-img="images/student2.jpg"><span>Portrait<br>images/student2.jpg</span><div class="cap glass"><b>Tunde Adeyemi, JSS 3</b><small>Best speaker, inter-school debate</small></div></div>
+<div class="ph r34 rv" data-img="images/student3.jpg"><span>Portrait<br>images/student3.jpg</span><div class="cap glass"><b>Fatima Bello, SS 2</b><small>Captain, girls’ football team</small></div></div>
+</div></div></section>
+
+<section><div class="wrap">
+<h2>News and events</h2>
+<div class="news glass rv" style="margin-top:24px">
+<div><time>14 Nov</time><p><b>Inter-house sports day.</b> Parents are welcome from 9:00 am.</p></div>
+<div><time>28 Nov</time><p><b>End of term exams begin.</b> Timetables are on the parent portal.</p></div>
+<div><time>12 Dec</time><p><b>Carol service and prize-giving.</b> All families are invited.</p></div>
+</div></div></section>
+
+<section id="gallery"><div class="wrap">
+<h2>Gallery</h2>
+<div class="gal" style="margin-top:24px">
+<div class="ph w t" data-img="images/g1.jpg"><span>g1.jpg</span></div><div class="ph" data-img="images/g2.jpg"><span>g2.jpg</span></div><div class="ph t" data-img="images/g3.jpg"><span>g3.jpg</span></div>
+<div class="ph" data-img="images/g4.jpg"><span>g4.jpg</span></div><div class="ph" data-img="images/g5.jpg"><span>g5.jpg</span></div><div class="ph w" data-img="images/g6.jpg"><span>g6.jpg</span></div>
+</div></div></section>
+
+<section id="portal"><div class="wrap"><div class="portal">
+<div><h2>Parent and student portal</h2>
+<p>Everything a parent needs about their child’s school life, on a phone or computer.</p>
+<ul><li>See results and report cards as soon as they are ready.</li><li>Check fee balances and pay online.</li><li>Get notices and attendance alerts.</li></ul>
+<a class="btn" href="portal.html">Try the portal demo</a></div>
+<div class="ph r45" data-img="images/portal.jpg"><span>Phone screenshot<br>images/portal.jpg</span></div>
+</div></div></section>
+
+<section id="admissions"><div class="wrap">
+<h2>Admissions</h2>
+<p class="lead">Joining Enzy Royal takes four steps.</p>
+<div class="adm">
+<ol><li class="glass rv"><div><b>Send an enquiry</b><span>Fill in the form and we will call you.</span></div></li><li class="glass rv"><div><b>Visit the school</b><span>Meet the teachers and see the campus.</span></div></li><li class="glass rv"><div><b>Entrance assessment</b><span>A short test and a friendly conversation.</span></div></li><li class="glass rv"><div><b>Resume classes</b><span>Complete payment and collect your uniform.</span></div></li></ol>
+<div><form id="f" class="glass">
+<label>Parent’s name<input required name="n" autocomplete="name"></label>
+<label>Phone number<input required name="p" inputmode="tel" autocomplete="tel"></label>
+<label>Child’s name<input required name="c"></label>
+<label>Class applying for<select name="k"><option>Nursery</option><option>Primary 1 to 6</option><option>JSS 1 to 3</option><option>SS 1 to 3</option></select></label>
+<button class="btn full" type="submit">Send enquiry</button>
+</form><div class="ok glass" id="ok" hidden></div></div>
+</div></div></section>
+</main>
+
+<footer class="glass">
+<div><b>Enzy Royal Schools</b><p>School address, City, State</p></div>
+<div><p>0800 000 0000<br>admissions@example.com</p></div>
+<div><p>Monday to Friday<br>7:30 am to 4:00 pm</p></div>
+<div><p>Demo built by Kergs</p></div>
+</footer>
+
+<script>
+document.querySelectorAll("[data-img]").forEach(function(el){var i=new Image();i.onload=function(){el.style.backgroundImage='url("'+el.dataset.img+'")';el.classList.add("has")};i.src=el.dataset.img});
+var rv=document.querySelectorAll(".rv");
+function count(el){var n=+el.dataset.n,t0=null;function s(t){t0=t0||t;var p=Math.min((t-t0)/1200,1);el.textContent=Math.round(n*(1-Math.pow(1-p,3))).toLocaleString("en-NG");if(p<1)requestAnimationFrame(s)}requestAnimationFrame(s)}
+if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var el=e.target;el.classList.add("in");var b=el.querySelector("[data-n]");if(b)count(b);io.unobserve(el)}})},{threshold:.15});rv.forEach(function(el,i){el.style.transitionDelay=(i%4)*90+"ms";io.observe(el)})}
+else{rv.forEach(function(el){el.classList.add("in")});document.querySelectorAll("[data-n]").forEach(function(b){b.textContent=(+b.dataset.n).toLocaleString("en-NG")})}
+document.getElementById("f").onsubmit=function(e){e.preventDefault();var f=e.target,o=document.getElementById("ok");o.hidden=false;o.textContent="Thank you, "+f.n.value+". We’ve received the enquiry for "+f.c.value+" ("+f.k.value+") and will call "+f.p.value+" within two working days. (Demo: nothing was sent.)";f.reset()};
+</script>
+</body>
+</html>
